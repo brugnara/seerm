@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+{{template "head"}}
+<body>
+{{template "navbar" .}}
+{{template "hero" "SeeRM|A delightful CRM experience"}}
+
+<section class="section">
+  {{template "menu" .}}
+
+{{if .SearchTerm}}
+  {{range .SearchRes}}
+    Lol
+  {{else}}
+    <div class="has-text-centered">
+      <strong>Found no records :/</strong>
+    </div>
+  {{end}}
+{{else}}
+  <div class="has-text-centered">
+    <strong>{{.Count}}</strong> customers stored.
+  </div>
+{{end}}
+</section>
+
+{{template "footer"}}
+</body>
+</html>

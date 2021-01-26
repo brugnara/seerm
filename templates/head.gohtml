@@ -1,0 +1,31 @@
+{{define "head"}}
+{{$envDev := "development"}}
+{{$envProd := "production.min"}}
+{{$env := $envProd}}
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css"
+    integrity="sha256-WLKGWSIJYerRN8tbNGtXWVYnUM5wMJTXD8eG4NtGcDM="
+    crossorigin="anonymous">
+
+  <script src="https://unpkg.com/react@17/umd/react.{{$env}}.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.{{$env}}.js" crossorigin></script>
+
+  <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+
+  <style>
+  @media screen and (max-width: 1023px) {
+    body > .container {
+      margin-left: 1rem;
+      margin-right: 1rem;
+    }
+  }
+  .container {
+    margin-bottom: 1rem;
+  }
+  </style>
+</head>
+{{end}}

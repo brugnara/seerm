@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+{{template "head"}}
+<body>
+  {{template "navbar" .}}
+  {{template "hero" "Name|Details.."}}
+
+  <section class="section">
+    <div class="content">
+      {{.Name}}
+    </div>
+  </section>
+</body>
+</html>

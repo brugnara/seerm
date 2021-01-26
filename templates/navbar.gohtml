@@ -1,0 +1,19 @@
+{{define "navbar"}}
+{{$id := "seebar"}}
+<div class="tabs">
+  <ul>
+    <li id="li-home-{{$id}}">
+      <a href="/">Home</a>
+    </li>
+  </ul>
+</div>
+<script>
+(function () {
+  if (window.location.href.split('?')[0].split('/').pop() === '') {
+    document.querySelector('#li-home-{{$id}}').classList.add('is-active')
+  } else {
+    // document.querySelector('#li-jobs-{{$id}}').classList.add('is-active')
+  }
+})()
+</script>
+{{end}}
