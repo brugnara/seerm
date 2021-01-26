@@ -10,7 +10,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 	var srcRes []customer
 	var query string
 
-	db.Table("customers").Count(&count)
+	db.Model(&customer{}).Count(&count)
 
 	query = r.FormValue("q")
 

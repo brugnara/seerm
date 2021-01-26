@@ -3,13 +3,16 @@
 {{template "head"}}
 <body>
   {{template "navbar" .}}
+  {{template "hero" "Customers|Not everyone, indeed"}}
+
   <section class="section">
     <div class="content">
-      {{if .}}
+      {{range .}}
         {{template "customer" .}}
       {{else}}
-        {{template "hero" "Gone!|Customer, is history"}}
-        <a class="button is-link" href="/">Back</a>
+        <div class="has-text-centered">
+          {{template "btn-new-customer"}}
+        </div>
       {{end}}
     </div>
   </section>

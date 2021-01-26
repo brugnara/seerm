@@ -1,0 +1,17 @@
+{{define "customer"}}
+<div class="card">
+  <div class="card-content">
+    <p class="title">{{.Name}}</p>
+    <p class="subtitle">{{.Email}}</p>
+  </div>
+  <footer class="card-footer">
+    <a
+      class="card-footer-item"
+      target="_blank"
+      href="mailto:{{.Email}}">Send E-Mail</a>
+    <a
+      class="card-footer-item"
+      href="/c/{{.UUID}}?delete=1">Delete</a>
+  </footer>
+</div>
+{{end}}

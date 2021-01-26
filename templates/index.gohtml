@@ -9,16 +9,17 @@
   {{template "menu" .}}
 
 {{if .SearchTerm}}
+  <div class="has-text-centered">
+    <strong>Found {{len .SearchRes}} customer/s</strong>
+  </div>
   {{range .SearchRes}}
-    Lol
-  {{else}}
-    <div class="has-text-centered">
-      <strong>Found no records :/</strong>
-    </div>
+    {{template "customer" .}}
   {{end}}
 {{else}}
   <div class="has-text-centered">
-    <strong>{{.Count}}</strong> customers stored.
+    <a href="/c">
+      <strong>{{.Count}}</strong> customer/s.
+    </a>
   </div>
 {{end}}
 </section>
