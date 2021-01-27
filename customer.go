@@ -26,26 +26,43 @@ func (c customer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if m := re.FindStringSubmatch(r.URL.Path); len(m) > 0 {
 		// handle
 		var c customer
-		db.First(&c, "uuid = ?", m[1])
+		res := db.First(&c, "uuid = ?", m[1])
 
-		if r.FormValue("delete") != "" {
-			db.Delete(&c)
+		if res.RowsAffected == 0 {
 			tpls.ExecuteTemplate(w, "customer.gohtml", nil)
 			return
 		}
 
-		tpls.ExecuteTemplate(w, "customer.gohtml", &c)
+		switch r.Method {
+		case http.MethodGet:
+			tpls.ExecuteTemplate(w, "customer.gohtml", &c)
+			return
+		case http.MethodDelete:
+			db.Delete(&c)
+			return
+		case http.MethodPost:
+			db.Model(&c).Update(
+				"name", r.FormValue("name"),
+			).Update(
+				"email", r.FormValue("email"),
+			)
+		}
+
+		http.Redirect(w, r, "/c/"+c.UUID, http.StatusSeeOther)
 		return
 	}
+
 	// new
 	if r.Method == http.MethodPost {
 		c.post(w, r)
 		return
 	}
+
 	if sx := strings.Split(r.URL.Path, "/"); sx[len(sx)-1] == "new" {
 		tpls.ExecuteTemplate(w, "customer-new.gohtml", nil)
 		return
 	}
+
 	// show all
 	c.list(w, r)
 }
@@ -65,5 +82,6 @@ func (c customer) post(w http.ResponseWriter, r *http.Request) {
 	}
 	log.Println(cst)
 	db.Create(&cst)
-	tpls.ExecuteTemplate(w, "customer.gohtml", &cst)
+	// tpls.ExecuteTemplate(w, "customer.gohtml", &cst)
+	http.Redirect(w, r, "/c/"+cst.UUID, http.StatusSeeOther)
 }

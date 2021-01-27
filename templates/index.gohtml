@@ -9,8 +9,11 @@
   {{template "menu" .}}
 
 {{if .SearchTerm}}
+  {{$l := len .SearchRes}}
   <div class="has-text-centered">
-    <strong>Found {{len .SearchRes}} customer/s</strong>
+    <strong>
+      Found {{$l}} customer{{if ne $l 1}}s{{end}}
+    </strong>
   </div>
   {{range .SearchRes}}
     {{template "customer" .}}
@@ -18,7 +21,7 @@
 {{else}}
   <div class="has-text-centered">
     <a href="/c">
-      <strong>{{.Count}}</strong> customer/s.
+      <strong>{{.Count}}</strong> customer{{if ne .Count 1}}s{{end}}.
     </a>
   </div>
 {{end}}

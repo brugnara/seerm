@@ -1,8 +1,11 @@
 package main
 
 import (
+	"fmt"
 	"html/template"
 	"strings"
+
+	uuid "github.com/satori/go.uuid"
 )
 
 var tpls *template.Template
@@ -17,6 +20,8 @@ func init() {
 		template.New("").Funcs(
 			template.FuncMap{
 				"toHero": toHero,
+				"concat": concat,
+				"randID": randID,
 			},
 		).ParseGlob("./templates/*.gohtml"),
 	)
@@ -31,4 +36,12 @@ func toHero(s string) (ret hero) {
 		ret.Subtitle = tmp[1]
 	}
 	return
+}
+
+func concat(a, b string) string {
+	return a + "|" + b
+}
+
+func randID() string {
+	return fmt.Sprintf("%s", uuid.NewV4())
 }
