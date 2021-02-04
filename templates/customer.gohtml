@@ -29,7 +29,10 @@
     <section class="section">
       <div class="block">
         <label class="label">Notes on this..</label>
-        <textarea class="textarea" placeholder="Useful stuff"></textarea>
+        <textarea
+          class="textarea"
+          id="note-{{$id}}"
+          placeholder="Useful stuff">{{.Note}}</textarea>
       </div>
 
       <div class="content">
@@ -66,7 +69,14 @@
     }
 
     window.save = function () {
-      console.log('todo..')
+      fetch('', {
+        method: 'PATCH',
+        body: JSON.stringify({
+          note: document.querySelector('#note-{{$id}}').value
+        })
+      }).then(() => {
+        window.location.href = '?updated=true'
+      })
     }
 
     window.editMode = function () {

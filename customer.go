@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -16,6 +17,7 @@ type customer struct {
 	UUID  string `gorm:"index"`
 	Name  string
 	Email string `gorm:"index"`
+	Note  string
 }
 
 func init() {
@@ -39,6 +41,15 @@ func (c customer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			return
 		case http.MethodDelete:
 			db.Delete(&c)
+			return
+		case http.MethodPatch:
+			var dat map[string]interface{}
+			if err := json.NewDecoder(r.Body).Decode(&dat); err != nil {
+				panic(err)
+			}
+			db.Model(&c).Update(
+				"note", dat["note"].(string),
+			)
 			return
 		case http.MethodPost:
 			db.Model(&c).Update(
