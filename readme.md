@@ -4,4 +4,6 @@ SeeRM
 
 SeeRM is delightful CRM written in Go.
 
-It is an experiment.
+It is an experiment / WiP.
+
+Best viewed on mobile.
